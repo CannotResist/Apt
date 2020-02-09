@@ -142,7 +142,7 @@ $host =  getRealHost();
         <title>Zend Server Test Page</title>
         <style type="text/css" media="screen">
             .zendserver-link{
-                color:white;
+               color:white;
             }
             body {
                 margin: 0px;

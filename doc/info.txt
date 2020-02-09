@@ -2,3 +2,15 @@ MySQL Server 8.0
 PHP C:\php742\
 
 
+Software
+Diff tools:
+https://winmerge.org/
+https://www.scootersoftware.com/
+'Diff Doc'
+
+Cloud:
+Microsoft Azure:
+https://www.youtube.com/watch?v=tDuruX7XSac&t=3038s
+
+
+
