@@ -1,7 +1,11 @@
 
+Sample Virtual Host name: MySoft.com
+
 Edit hosts on Win10:
 
 C:\Windows\System32\Drivers\etc
+
+Add 
 
 WInKey + R cmd
 
