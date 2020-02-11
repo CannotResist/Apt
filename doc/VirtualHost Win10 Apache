@@ -1,13 +1,151 @@
 
 Sample Virtual Host name: MySoft.com
 
-Edit hosts on Win10:
+1. Edit file "hosts" on Win10 in directory:
 
 C:\Windows\System32\Drivers\etc
 
-Add 
+Add this line:
 
-WInKey + R cmd
+MySoft.com  127.0.0.1
+
+Your hosts file should looks like that:
+"
+# Copyright (c) 1993-2009 Microsoft Corp.
+#
+# This is a sample HOSTS file used by Microsoft TCP/IP for Windows.
+#
+# This file contains the mappings of IP addresses to host names. Each
+# entry should be kept on an individual line. The IP address should
+# be placed in the first column followed by the corresponding host name.
+# The IP address and the host name should be separated by at least one
+# space.
+#
+# Additionally, comments (such as these) may be inserted on individual
+# lines or following the machine name denoted by a '#' symbol.
+#
+# For example:
+#
+#      102.54.94.97     rhino.acme.com          # source server
+#       38.25.63.10     x.acme.com              # x client host
+
+# localhost name resolution is handled within DNS itself.
+#	127.0.0.1       localhost
+#	::1             localhost
+	127.0.0.1	mobiledrug.com
+  127.0.0.1 MySoft.com
+"
+
+Line that begins from "#" is a comment and system will not read that.
+
+2. Is there is a problem with saving that file, you have to change permission by adding 
+rule "modify".
+
+3. Run ping command from windows command line:
+"WinKey + R" + "cmd" + Enter.
+
+Ping MySoft.com 
+
+C:\Users>ping MySoft.com
+
+Your console should looks like that below:
+
+"
+Pinging mysoft.com [127.0.0.1] with 32 bytes of data:
+Reply from 127.0.0.1: bytes=32 time<1ms TTL=128
+Reply from 127.0.0.1: bytes=32 time<1ms TTL=128
+Reply from 127.0.0.1: bytes=32 time<1ms TTL=128
+Reply from 127.0.0.1: bytes=32 time<1ms TTL=128
+
+Ping statistics for 127.0.0.1:
+    Packets: Sent = 4, Received = 4, Lost = 0 (0% loss),
+Approximate round trip times in milli-seconds:
+    Minimum = 0ms, Maximum = 0ms, Average = 0ms
+
+C:\Users>
+"
+
+4. Edit file httpd.conf from Apache directory:
+C:\Program Files (x86)\Zend\Apache24\conf\httpd.conf
+
+On the bottom of that file add:
+"
+Include "conf/mysoftcom.conf"
+"
+Close httpd.conf.
+
+5. In the directory C:\Program Files (x86)\Zend\Apache24\conf\
+create file mysoftcom.conf with:
+"
+Listen 127.0.0.1:80
+AllowEncodedSlashes On
+
+<VirtualHost mysoft.com:80>
+    DocumentRoot "C:\Users\Grzegorz\source\repos\CannotResist\apt\src"
+    ServerName mysoft.com
+        <Directory "C:\Users\Grzegorz\source\repos\CannotResist\apt\src">
+            Options Indexes FollowSymLinks ExecCGI
+            AllowOverride All
+            Require all granted
+        </Directory>
+</VirtualHost>
+"
+
+The DocumentRoot should be your web application directory.
+
+6. Restart you Apache web server to read new configuration files. 
+
+7. If apache desn't restart go to command line and run:
+
+C:\Program Files (x86)\Zend\Apache24\bin\httpd.exe -t -D DUMP_VHOSTS
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PATH=
+C:\Program Files (x86)\Zend\ZendServer\php\active\lib;
+C:\Program Files (x86)\Zend\ZendServer\php\active\bin;
+C:\Program Files (x86)\Common Files\Oracle\Java\javapath;
+C:\WINDOWS\system32;
+C:\WINDOWS;
+C:\WINDOWS\System32\Wbem;
+C:\WINDOWS\System32\WindowsPowerShell\v1.0\;
+C:\WINDOWS\System32\OpenSSH\;
+C:\Program Files\Microsoft SQL Server\120\Tools\Binn\;
+C:\Program Files\Common Files\Autodesk Shared\;
+C:\php742;
+C:\composer;
+C:\PROGRA~2\IBM\SQLLIB\BIN;
+C:\PROGRA~2\IBM\SQLLIB\FUNCTION;
+C:\Program Files\dotnet\;
+C:\Program Files\Git\cmd;
+C:\Program Files (x86)\WinMerge;
+C:\Program Files\MySQL\MySQL Shell 8.0\bin\;
+C:\Users\Ghost Rider\AppData\Local\Microsoft\WindowsApps;
+C:\Users\Ghost Rider\AppData\Roaming\Composer\vendor\bin
 
 
 
