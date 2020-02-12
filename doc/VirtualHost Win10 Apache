@@ -1,0 +1,116 @@
+Sample Virtual Host name for MySoft.com
+
+1. Edit file "hosts" on Win10 in directory:
+
+C:\Windows\System32\Drivers\etc
+
+Add this line:
+
+MySoft.com  127.0.0.1
+
+Your hosts file should look like that:
+"
+# Copyright (c) 1993-2009 Microsoft Corp.
+#
+# This is a sample HOSTS file used by Microsoft TCP/IP for Windows.
+#
+# This file contains the mappings of IP addresses to host names. Each
+# entry should be kept on an individual line. The IP address should
+# be placed in the first column followed by the corresponding host name.
+# The IP address and the host name should be separated by at least one
+# space.
+#
+# Additionally, comments (such as these) may be inserted on individual
+# lines or following the machine name denoted by a '#' symbol.
+#
+# For example:
+#
+#      102.54.94.97     rhino.acme.com          # source server
+#       38.25.63.10     x.acme.com              # x client host
+
+# localhost name resolution is handled within DNS itself.
+#    127.0.0.1       localhost
+#    ::1             localhost
+    127.0.0.1       mobiledrug.com
+    127.0.0.1       MySoft.com
+"
+
+The line that begins from "#" is a comment and the system will not read that.
+Remember to revoke permissions to that file to not leave a backdoor in your system files. 
+
+
+2. Is there is a problem with saving that file, you have to change permission by adding 
+the rule "modify". 
+Remember to revoke permissions to that file to not leave a backdoor in your system files. 
+
+3. Run ping command from windows command line:
+"WinKey + R" + "cmd" + Enter.
+
+Ping MySoft.com 
+
+C:\Users>ping MySoft.com
+
+Your console should looks like that below:
+
+"
+Pinging mysoft.com [127.0.0.1] with 32 bytes of data:
+Reply from 127.0.0.1: bytes=32 time<1ms TTL=128
+Reply from 127.0.0.1: bytes=32 time<1ms TTL=128
+Reply from 127.0.0.1: bytes=32 time<1ms TTL=128
+Reply from 127.0.0.1: bytes=32 time<1ms TTL=128
+
+Ping statistics for 127.0.0.1:
+    Packets: Sent = 4, Received = 4, Lost = 0 (0% loss),
+Approximate round trip times in milli-seconds:
+    Minimum = 0ms, Maximum = 0ms, Average = 0ms
+
+C:\Users>
+"
+
+4. Edit file httpd.conf from Apache directory:
+C:\Program Files (x86)\Zend\Apache24\conf\httpd.conf
+
+On the bottom of that file add:
+"
+Include "conf/mysoftcom.conf"
+"
+Close httpd.conf.
+Again, remember to revoke permissions to edited files.
+
+5. In the directory C:\Program Files (x86)\Zend\Apache24\conf\
+create file mysoftcom.conf with:
+"
+Listen 127.0.0.1:80
+AllowEncodedSlashes On
+
+<VirtualHost mysoft.com:80>
+    DocumentRoot "C:\Users\Grzegorz\source\repos\CannotResist\apt\src"
+    ServerName mysoft.com
+        <Directory "C:\Users\Grzegorz\source\repos\CannotResist\apt\src">
+            Options Indexes FollowSymLinks ExecCGI
+            AllowOverride All
+            Require all granted
+        </Directory>
+</VirtualHost>
+"
+
+The DocumentRoot should be your web application directory.
+
+6. Restart your Apache webserver to read new configuration files. 
+
+7. If Apache doesn't restart go to the command line and run:
+
+C:\Program Files (x86)\Zend\Apache24\bin\httpd.exe -t -D DUMP_VHOSTS
+
+
+"
+:\Program Files (x86)\Zend\Apache24\bin>httpd.exe -t -D DUMP_VHOSTS
+
+If there is any misconfiguration or bug, apache will tel you in detailed information where the problem exists.
+
+8. For the final test, run a browser and type mysoft.com.
+
+
+
+
+
